@@ -6,6 +6,8 @@ const express = require('express');
 // import indexRouter from "./routes/index";
 // import usersRouter from "./routes/users";
 // import passport from "passport";
+const linkDB = require("./config/mongoDB");
+const linkSentry = require("./config/sentry");
 const configurePassport = require('./config/passport');
 // const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -14,22 +16,23 @@ const cors = require('cors');
 const usersRouter = require('./routes/users');
 const authenticationRouter = require('./routes/authentication');
 const ordersRouter = require('./routes/orders');
+const reviewsRouter = require('./routes/reviews');
+const organizationsRouter = require('./routes/organizations');
 const Sentry = require('@sentry/node');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 
-Sentry.init({dsn: 'https://cff192b9792d485a98c31dcd5ea50ebf@sentry.io/1801308'});
+Sentry.init({dsn: linkSentry.link});
 
 configurePassport(passport);
 mongoose
-    .connect('mongodb+srv://kostya:123@mycluster-c9ywb.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true})
+    .connect(linkDB.link, {useNewUrlParser: true})
     .then(() => {
         console.log("MongoDB connected")
     })
     .catch(err => {
         console.log("MongoDB error: " + err.message);
     });
-
 const app = express();
 
 
@@ -43,6 +46,8 @@ app.use(passport.initialize());
 app.use('/users', usersRouter);
 app.use('/', authenticationRouter);
 app.use('/orders', ordersRouter);
+app.use('/reviews', reviewsRouter);
+app.use('/organizations', organizationsRouter);
 
 
 app.listen(process.env.PORT || 3000, () => {

@@ -1,16 +1,16 @@
 const mongoose = require('mongoose');
 const orderSchema = mongoose.Schema({
     customer: {type: mongoose.Schema.Types.ObjectId, ref: "user"},
-    price: {type: Number},
+    price: {type: Number, default: null},
     date: {type: Date, default: new Date()},
-    curLocation: {type: String},
+    curLocation: {type: String, default: null},
     neededLocations: [
         {type: String, default: null}
     ],
     review: {type: mongoose.Schema.Types.ObjectId, ref: 'review'},
-    typePay: {type: String}, // cash or numcard
-    status: {type: String}, // confirmed, canceled, in progress
-    tip: {type: Number},
+    typePay: {type: String, default: null}, // cash or numcard
+    status: {type: String, default: null}, // confirmed, canceled,in progress,awaiting
+    tip: {type: Number, default: null},
     driver: {type: mongoose.Schema.Types.ObjectId, ref: "user"},
     organization: {type: mongoose.Schema.Types.ObjectId, ref: "organization"},
 });

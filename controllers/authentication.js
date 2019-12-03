@@ -17,12 +17,12 @@ module.exports = {
             errors.push("Passwords must be equals");
         }
         if (errors.length > 0) {
-            res.send({success: false, errors})
+            return res.json({success: false, errors})
         } else {
             User.findOne({login}).then(async user => {
                 if (user) {
                     errors.push("This login is exist");
-                    res.send({success: false, errors});
+                    await res.json({success: false, errors});
                 } else {
                     const newUser = new User({
                         name,
@@ -44,7 +44,6 @@ module.exports = {
                 }
             });
         }
-
     },
     login: async (req, res, next) => {
         await passport.authenticate("local", function (err, user, message) {
@@ -57,7 +56,6 @@ module.exports = {
                     type: user.type,
                     login: user.login
                 };
-
                 const token = jwt.sign(payload, jwtConfig.secret, {
                     expiresIn: "7d"
                 });
@@ -136,7 +134,7 @@ module.exports = {
                             errors.push("Passwords must be equals");
                         }
                         if (errors.length > 0) {
-                            return res.send({success: false, errors});
+                            return res.json({success: false, errors});
                         } else {
                             user.password = password;
                             user.resetPasswordToken = undefined;
