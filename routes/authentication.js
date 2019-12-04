@@ -1,6 +1,7 @@
-let express = require('express');
+import express from 'express';
+import * as authentication from "../controllers/authentication";
+
 let router = express.Router();
-const authentication = require('../controllers/authentication');
 
 router.post('/login', authentication.login);
 router.post('/registration', authentication.register);

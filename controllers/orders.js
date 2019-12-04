@@ -33,7 +33,6 @@ module.exports = {
             return res.json({success: false});
         }
     },
-    //проверенно
     acceptOrder: async (req, res) => {
         if (!req.user || req.user.type !== "Driver") return res.json({success: false});
         const driver = await User.findById(req.user);
@@ -48,7 +47,6 @@ module.exports = {
             return res.json({success: true, order: order});
         }
     },
-    // проверенно
     setOrderInProgressOrDone: async (req, res) => {
         if (!req.user || req.user.type !== "Driver") return res.json({success: false});
         const status = req.body.status;

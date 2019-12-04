@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const organizationSchema = mongoose.Schema({
     name: {type: String},
     orders: [{type: mongoose.Schema.Types.ObjectId, ref: "order", default: null}],

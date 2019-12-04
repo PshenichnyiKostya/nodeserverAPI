@@ -1,7 +1,9 @@
-let express = require('express');
+import express from 'express';
+
 let router = express.Router();
-const passport = require('passport');
-const orders = require('../controllers/orders');
+import passport from "passport";
+import orders from '../controllers/orders';
+
 router.post('/book', passport.authenticate('jwt'), orders.book);
 router.post('/accept/:orderId', passport.authenticate('jwt'), orders.acceptOrder);
 router.post('/update/:orderId', passport.authenticate('jwt'), orders.setOrderInProgressOrDone);

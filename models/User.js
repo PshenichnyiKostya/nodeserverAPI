@@ -1,5 +1,6 @@
-const mongoose = require('mongoose');
-const crypto = require('crypto');
+import mongoose from 'mongoose';
+import crypto from 'crypto';
+
 const userSchema = mongoose.Schema({
     name: {type: String, require: true},
     login: {type: String, require: true, unique: true},

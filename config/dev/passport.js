@@ -5,7 +5,7 @@
 const LocalStrategy = require('passport-local').Strategy;
 const passportJwt = require('passport-jwt');
 const jwt = require('jsonwebtoken');
-let User = require('../models/User');
+let User = require('../../models/User');
 
 
 const jwtConfig = require('./jwt');

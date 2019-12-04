@@ -1,7 +1,7 @@
 let Organization = require('../models/Organization');
 let User = require('../models/User');
 const jwt = require('jsonwebtoken');
-const jwtConfig = require('../config/jwt');
+const jwtConfig = require('../config/dev/jwt');
 module.exports = {
     add: async (req, res) => {
         if (req.user && req.user.type === 'Admin') {
@@ -138,7 +138,6 @@ module.exports = {
         });
 
     },
-
     //доделать
     getDrivers: async (req, res) => {
         if (!req.user || !req.params.id) return res.json({success: false});

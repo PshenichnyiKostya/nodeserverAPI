@@ -2,9 +2,8 @@ let Review = require('../models/Review');
 let Order = require('../models/Order');
 
 module.exports = {
-    // все ок надо проверить
     add: async (req, res) => {
-        const {rating, body, tip} = req.body;
+        const {rating, body} = req.body;
         const order = req.params.orderId;
         const errors = [];
         if (!body) {
@@ -15,20 +14,15 @@ module.exports = {
         } else if (rating > 5 || rating < 0) {
             errors.push("Rating starts from 0 to 5 stars");
         }
+        if (errors.length > 0) {
+            return res.json({success: false, errors});
+        }
         await Order.findById(order).then(async ord => {
             if (!ord.customer.equals(req.user._id)) {
                 return res.json({success: false});
             }
             if (!ord || ord.status !== "done") {
                 return res.status(500).json({success: false});
-            } else if (ord.status !== "in progress" && !tip && tip > 0) {
-                await Order.findByIdAndUpdate(order, {
-                    tip: tip,
-                });
-                return res.json({success: true});
-            }
-            if (errors.length > 0) {
-                return res.json({success: false, errors});
             }
             try {
                 const reviewModel = new Review({
@@ -37,6 +31,7 @@ module.exports = {
                     order,
                     user: req.user._id,
                 });
+
                 const review = await reviewModel.save();
                 await ord.update({review: review._id});
                 return await res.json({success: true});

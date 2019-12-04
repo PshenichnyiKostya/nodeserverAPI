@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+
 const orderSchema = mongoose.Schema({
     customer: {type: mongoose.Schema.Types.ObjectId, ref: "user"},
     price: {type: Number, default: null},
@@ -10,7 +11,6 @@ const orderSchema = mongoose.Schema({
     review: {type: mongoose.Schema.Types.ObjectId, ref: 'review'},
     typePay: {type: String, default: null}, // cash or numcard
     status: {type: String, default: null}, // confirmed, canceled,in progress,awaiting
-    tip: {type: Number, default: null},
     driver: {type: mongoose.Schema.Types.ObjectId, ref: "user"},
     organization: {type: mongoose.Schema.Types.ObjectId, ref: "organization"},
 });

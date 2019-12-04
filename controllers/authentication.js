@@ -1,9 +1,9 @@
 const passport = require('passport');
-const jwtConfig = require('../config/jwt');
+const jwtConfig = require('../config/dev/jwt');
 const waterfall = require('async-waterfall');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
-const myMail = require('../config/mymail');
+const myMail = require('../config/dev/mymail');
 const crypto = require('crypto');
 
 let User = require('../models/User');
