@@ -1,12 +1,17 @@
-const passport = require('passport');
+import passport from 'passport'
+
 const jwtConfig = require('../config/dev/jwt');
 const waterfall = require('async-waterfall');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const myMail = require('../config/dev/mymail');
 const crypto = require('crypto');
+import socket from 'socket.io';
+import server from '../app';
 
-let User = require('../models/User');
+let io = socket(server);
+import User from '../models/User';
+
 module.exports = {
     register: (req, res) => {
         const {name, login, type = "User", password, password2} = req.body;
@@ -46,6 +51,10 @@ module.exports = {
         }
     },
     login: async (req, res, next) => {
+        // io.on('connection', function () {
+        //     console.log("Driver connected");
+        // });
+        // io.connect('http://localhost3000');
         await passport.authenticate("local", function (err, user, message) {
             if (user === false) {
                 return res.json({success: false, errors: ["User does not exist"]});

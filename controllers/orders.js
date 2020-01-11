@@ -1,5 +1,9 @@
-let Order = require('../models/Order');
-let User = require('../models/User');
+import Order from '../models/Order';
+import User from '../models/User';
+import socket from 'socket.io';
+import server from '../app';
+
+let io = socket(server);
 module.exports = {
     book: async (req, res) => {
         if (req.user && req.user.type === "User") {
@@ -44,6 +48,9 @@ module.exports = {
         if (!order) {
             return res.json({success: false});
         } else {
+            // io.on('connection', function (socket) {
+            //     console.log("Driver connected");
+            // });
             return res.json({success: true, order: order});
         }
     },
@@ -93,4 +100,38 @@ module.exports = {
             }
         );
     },
+    // chat: async (req, res) => {
+    //     // if (!req.user || (req.user.type !== "Driver" && req.user.type !== "User")) return res.json({success: false});
+    //     await Order.findById(req.params.orderId).then(order => {
+    //         // if (!order.driver.equals(req.user._id) && !order.customer.equals(req.user._id)) {
+    //         //     return res.json({success: false});
+    //         // }
+    //         // let userName = req.user.name;
+    //         io.on('connection', function (socket) {
+    //             console.log('user connected');
+    //             socket.on('join', function () {
+    //                 console.log(undefined + " : has joined the chat ");
+    //                 socket.broadcast.emit('userjoinedthechat', undefined + " : has joined the chat ");
+    //             });
+    //
+    //             socket.on('messagedetection', (messageContent) => {
+    //                 console.log(undefined + " : " + messageContent);
+    //                 let message = {"message": messageContent, "senderNickname": undefined}
+    //                 io.emit('message', message)
+    //             });
+    //
+    //             socket.on('disconnect', function () {
+    //                 console.log(undefined + ' has left ');
+    //                 socket.broadcast.emit("userdisconnect", ' user has left')
+    //             })
+    //         });
+    //         if (order.status === "confirmed") {
+    //             res.sendFile('/Users/kostya/WebstormProjects/nodeserver/index.html');
+    //         } else {
+    //             return res.json({success: false});
+    //         }
+    //     });
+    // }
+
+
 };

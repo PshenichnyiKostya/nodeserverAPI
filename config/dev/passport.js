@@ -1,14 +1,9 @@
-// import LocalStrategy from "passport-local";
-// import passportJwt from "passport-jwt";
-// import jwtConfig from "./jwt";
-// import jwt from "jsonwebtoken";
-const LocalStrategy = require('passport-local').Strategy;
-const passportJwt = require('passport-jwt');
-const jwt = require('jsonwebtoken');
-let User = require('../../models/User');
+import LocalStrategy from "passport-local";
+import passportJwt from "passport-jwt";
+import jwtConfig from "./jwt";
+import jwt from "jsonwebtoken";
+import User from '../../models/User';
 
-
-const jwtConfig = require('./jwt');
 
 const JwtStrategy = passportJwt.Strategy;
 const ExtractJwt = passportJwt.ExtractJwt;

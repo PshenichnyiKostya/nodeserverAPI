@@ -4,7 +4,7 @@ import crypto from 'crypto';
 const userSchema = mongoose.Schema({
     name: {type: String, require: true},
     login: {type: String, require: true, unique: true},
-    type: {type: String}, //User driver
+    type: {type: String}, //User Driver Owner
     passwordHash: {type: String},
     salt: {type: String},
     resetPasswordToken: {type: String},
@@ -24,7 +24,6 @@ userSchema.virtual("password")
             this.passwordHash = undefined;
         }
     })
-
     .get(function () {
         return this._plainPassword;
     });

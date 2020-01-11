@@ -1,5 +1,6 @@
-let Organization = require('../models/Organization');
-let User = require('../models/User');
+import User from '../models/User';
+import Organization from '../models/Organization';
+
 const jwt = require('jsonwebtoken');
 const jwtConfig = require('../config/dev/jwt');
 module.exports = {

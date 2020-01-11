@@ -7,5 +7,10 @@
         }
       }
     ]
+  ],
+  "plugins": [
+    "@babel/proposal-export-namespace-from",
+    "@babel/transform-flow-strip-types",
+    "@babel/plugin-transform-runtime"
   ]
 }
